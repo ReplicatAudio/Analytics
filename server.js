@@ -128,6 +128,11 @@ app.get('/logs', async (req, res) => {
     res.json(json);
 });
 
+app.get('/actions', async (req, res) => {
+    const json = await db.Actions.findAll();
+    res.json(json);
+});
+
 // app.listen(port, () => {
 //     console.log(`Example app listening on port ${port}`);
 // });
