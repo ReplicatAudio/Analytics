@@ -73,7 +73,7 @@ app.get('/', async (req, res) => {
     res.send('OK!');
 });
 app.get('/status', async (req, res) => {
-    res.send('OK!');
+    res.send('OK');
 });
 
 app.post('/log', async (req, res) => {
