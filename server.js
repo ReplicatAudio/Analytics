@@ -1,24 +1,14 @@
 const express = require('express');
+const safePort = require('./safePort');
+
 const app = express();
 
 const db = require('./db');
 
-let port = 1337;
-if(process.argv[2])
-{
-    const safePort = parseInt(process.argv[2]);
-    if(isNaN(safePort)==false)
-    {
-        port = safePort;
-    }
-    else
-    {
-        console.log('Port must be an integer! Got: '+process.argv[2]);
-        console.log('Port will default to '+port);
-    }
-}
+const port = safePort(process.argv);
 
 const analytics = require('./analytics');
+const safePort = require('./safePort');
 
 const logger = function (req, res, next)
 {
