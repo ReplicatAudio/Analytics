@@ -23,15 +23,42 @@ const Logs = sequelize.define('Logs', {
         type: Sequelize.STRING,
         allowNull: false,
     },
-    'path': {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
     'params': {
         type: Sequelize.STRING,
         allowNull: false,
     },
     'ip': {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    'tag': {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    'origin': {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    'time': {
+        type: "TIMESTAMP",
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+        allowNull: false,
+    },
+}, {
+    // Other model options go here
+    timestamps: true
+});
+
+const Actions = sequelize.define('Actions', {
+    'ip': {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    'tag': {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    'origin': {
         type: Sequelize.STRING,
         allowNull: false,
     },
@@ -55,6 +82,10 @@ const Downloads = sequelize.define('Downloads', {
         type: Sequelize.STRING,
         allowNull: false,
     },
+    'origin': {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
     'time': {
         type: "TIMESTAMP",
         defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
@@ -67,5 +98,6 @@ const Downloads = sequelize.define('Downloads', {
 
 module.exports = {
     Downloads,
+    Actions,
     Logs
 }

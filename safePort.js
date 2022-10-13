@@ -1,5 +1,5 @@
 module.exports = (args)=>{
-    let port = 1337;
+    let port = 1234;
     if(args[2])
     {
         const safePort = parseInt(process.argv[2]);
