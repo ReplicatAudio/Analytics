@@ -45,7 +45,7 @@ const logger = async function (req, res, next)
         let trackingTag = '';
         for(const img of trackingImgs){
             if(path.basename(req.path) === img){
-                trackingTag = img;
+                trackingTag = path.parse(img).name;
                 break;
             }
         }
