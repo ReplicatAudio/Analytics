@@ -50,11 +50,12 @@ const logger = async function (req, res, next)
             }
         }
         if(trackingTag !== ''){
-            console.log('Hit tracking img');
+            const referer = req.headers.referer || 'unknown';
+            console.log('Hit tracking img: '+trackingTag);
             const logPkg= {
                 'ip': req.ip,
-                'tag': 'tracking_'+trackingTag,
-                'origin': req.headers.referer || 'unknown'
+                'tag': 'ti_'+trackingTag,
+                'origin': referer 
             };
             await db.Actions.create(logPkg);
         }
