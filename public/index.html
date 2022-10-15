@@ -1,0 +1,73 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.2/axios.min.js" integrity="sha512-bHeT+z+n8rh9CKrSrbyfbINxu7gsBmSHlDCb3gUF1BjmjDzKhoKspyB71k0CIRBSjE5IVQiMMVBgCWjF60qsvA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<div id="stats">...</div>
+<hr>
+<div id="actions">...</div>
+<canvas id="myChart" width="400" height="400"></canvas>
+<style>
+    body{
+        background:rgb(33,33,33);
+        color:rgb(0,255,0);
+        font-family:consolas;
+    }
+    hr{
+        border-color:rgb(0,255,0);
+        outline-color:rgb(0,255,0);
+    }
+    table{
+        text-align:left;
+        width:100%;
+    }
+</style>
+<script>
+    async function getData(){
+        const rawData = await axios.get('/actions');
+        Array.prototype.reverse.call(rawData.data);
+        let stats = {
+            totalActions: Object.values(rawData.data).length,
+            downloads:0,
+            views:{
+                web: 0,
+                itch: 0,
+            },
+        };
+        let actionsHtml = `<table><tr><th>Tag</th><th>IP</th><th>Time (UTC)</th></tr>`;
+        for(let entry of rawData.data){
+            //
+            if(entry.tag.includes('download')){
+                stats.downloads++;
+            }
+            if(entry.tag.includes('view')){
+                stats.views.web++;
+            }
+            if(entry.tag.includes('itch')){
+                stats.views.itch++;
+            }
+            // 
+            actionsHtml += '<tr>';
+            actionsHtml += '<th>';
+            actionsHtml += entry.tag;
+            actionsHtml += '</th>';
+            actionsHtml += '<th>';
+            actionsHtml += entry.ip.replace('::ffff:','');
+            actionsHtml += '</th>';
+            actionsHtml += '<th>';
+            actionsHtml += entry.time;
+            actionsHtml += '</th>';
+            actionsHtml += '</tr>';
+        }
+        actionsHtml += '</table>';
+        let statsHtml = '<div class="stats">';
+        statsHtml += 'Total Actions: '+stats.totalActions;
+        statsHtml += '<br>';
+        statsHtml += 'Downloads: '+stats.downloads;
+        statsHtml += '<br>';
+        statsHtml += 'Website Views: '+stats.views.web;
+        statsHtml += '<br>';
+        statsHtml += 'Itch Views: '+stats.views.itch;
+        statsHtml += '<br>';
+        statsHtml +='</div>';
+        document.getElementById('actions').innerHTML = actionsHtml;
+        document.getElementById('stats').innerHTML = statsHtml;
+    }
+    getData();
+</script>

@@ -1,21 +1,10 @@
 const { Sequelize } = require('sequelize');
 
-// const sequelize = new Sequelize({
-//     dialect: 'sqlite',
-//     storage: __dirname+'/database.sqlite',
-//     logging: false,
-// });
-
-const sequelize = new Sequelize(
-    'analytics',
-    'admin',
-    'Tru5tn01!',
-     {
-       host: '127.0.0.1',
-       dialect: 'mysql',
-       logging: false
-     }
-   );
+const sequelize = new Sequelize({
+    dialect: 'sqlite',
+    storage: __dirname+'/databaseFix.sqlite',
+    logging: false,
+});
 
 const Logs = sequelize.define('Logs', {
     'baseUrl': {
@@ -55,9 +44,19 @@ const Logs = sequelize.define('Logs', {
         defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
         allowNull: false,
     },
+    'createdAt': {
+        type: "TIMESTAMP",
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+        allowNull: false,
+    },
+    'updatedAt': {
+        type: "TIMESTAMP",
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+        allowNull: false,
+    },
 }, {
     // Other model options go here
-    timestamps: true
+    timestamps: false
 });
 
 const Actions = sequelize.define('Actions', {
@@ -78,9 +77,19 @@ const Actions = sequelize.define('Actions', {
         defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
         allowNull: false,
     },
+    'createdAt': {
+        type: "TIMESTAMP",
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+        allowNull: false,
+    },
+    'updatedAt': {
+        type: "TIMESTAMP",
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+        allowNull: false,
+    },
 }, {
     // Other model options go here
-    timestamps: true
+    timestamps: false
 });
 
 const Downloads = sequelize.define('Downloads', {
@@ -102,9 +111,19 @@ const Downloads = sequelize.define('Downloads', {
         defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
         allowNull: false,
     },
+    'createdAt': {
+        type: "TIMESTAMP",
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+        allowNull: false,
+    },
+    'updatedAt': {
+        type: "TIMESTAMP",
+        defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+        allowNull: false,
+    },
 }, {
     // Other model options go here
-    timestamps: true
+    timestamps: false
 });
 
 module.exports = {

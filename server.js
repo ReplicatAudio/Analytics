@@ -130,7 +130,8 @@ app.get('/logs', async (req, res) => {
 });
 
 app.get('/actions', async (req, res) => {
-    const json = await db.Actions.findAll();
+    const limit = req.query.limit || 1000;
+    const json = await db.Actions.findAll({limit:limit});
     res.json(json);
 });
 
