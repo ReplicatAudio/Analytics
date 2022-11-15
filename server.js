@@ -135,6 +135,24 @@ app.get('/actions', async (req, res) => {
     res.json(json);
 });
 
+app.get('/motd/lowfire', (req, res) => {
+	const title = "Welcome";
+	const body = "Thanks for joining the LowFire Beta!";
+	const link = "https://replicataudio.com"
+	const tag = "test";
+	const delimiter = "|";
+	res.send(title+delimiter+body+delimiter+link+delimiter+tag);
+});
+
+app.get('/motd/generic', (req, res) => {
+	const title = "Yo!";
+	const body = "Thanks for choosing ReplicatAudio!";
+	const link = "https://replicataudio.com"
+	const tag = "test";
+	const delimiter = "|";
+	res.send(title+delimiter+body+delimiter+link+delimiter+tag);
+});
+
 // app.listen(port, () => {
 //     console.log(`Example app listening on port ${port}`);
 // });
