@@ -78,6 +78,7 @@ app.get('/status', async (req, res) => {
 });
 
 app.post('/log', async (req, res) => {
+    console.log(req.body.origin || 'sketch');
     const required = {
         'baseUrl':'required',
         'method':'required',
@@ -99,7 +100,7 @@ app.post('/log', async (req, res) => {
 });
 
 app.post('/action', async (req, res) => {
-    console.log(req.body);
+    console.log(req.body || 'sketch');
     const required = {
         'ip': req.ip,
         'tag': 'required',
