@@ -138,7 +138,16 @@ app.get('/actions', async (req, res) => {
 
 app.get('/motd/lowfire', (req, res) => {
 	const title = "Welcome";
-	const body = "Thanks for joining the LowFire Beta!";
+	const body = "Thanks for using LowFire";
+	const link = "https://replicataudio.com"
+	const tag = "thanks1";
+	const delimiter = "|";
+	res.send(title+delimiter+body+delimiter+link+delimiter+tag);
+});
+
+app.get('/motd/greenwave', (req, res) => {
+	const title = "Welcome";
+	const body = "Thanks for joining the GreenWave Beta!";
 	const link = "https://replicataudio.com"
 	const tag = "test";
 	const delimiter = "|";
