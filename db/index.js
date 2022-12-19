@@ -110,5 +110,6 @@ const Downloads = sequelize.define('Downloads', {
 module.exports = {
     Downloads,
     Actions,
-    Logs
+    Logs,
+    seq: sequelize
 }

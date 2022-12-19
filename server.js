@@ -120,20 +120,62 @@ app.post('/download', (req, res) => {
     res.send('OK');
 });
 
-app.get('/downloadAnalytics', async (req, res) => {
-    const json = await db.Downloads.findAll();
-    res.json(json);
-});
+// app.get('/downloadAnalytics', async (req, res) => {
+//     const json = await db.Downloads.findAll();
+//     res.json(json);
+// });
 
 app.get('/logs', async (req, res) => {
     const json = await db.Logs.findAll();
-    res.json(json);
+    var filename = 'ra_logs.json'; // or whatever
+    var mimetype = 'application/json';
+    res.setHeader('Content-Type', mimetype);
+    res.setHeader('Content-disposition','attachment; filename='+filename);
+    res.send( json );
+});
+
+app.get('/actionsDL', async (req, res) => {
+    const { Op } = require("sequelize");
+    const limit = req.query.limit || 1000;
+    const query = {};
+    if (req.query.filter)
+    {
+        query.where = {
+            tag: {
+                [Op.like]: '%' + 'gw' + '%'
+            }
+        };
+    }
+    query.order = [
+        ['id', 'DESC']
+    ]
+    query.limit = limit;
+    const json = await db.Actions.findAll(query);
+    var filename = 'ra_actions.json'; // or whatever
+    var mimetype = 'application/json';
+    res.setHeader('Content-Type', mimetype);
+    res.setHeader('Content-disposition','attachment; filename='+filename);
+    res.send( json );
 });
 
 app.get('/actions', async (req, res) => {
+    const { Op } = require("sequelize");
     const limit = req.query.limit || 1000;
-    const json = await db.Actions.findAll({limit:limit});
-    res.json(json);
+    const query = {};
+    if (req.query.filter)
+    {
+        query.where = {
+            tag: {
+                [Op.like]: '%' + req.query.filter + '%'
+            }
+        };
+    }
+    query.order = [
+        ['id', 'DESC']
+    ]
+    query.limit = limit;
+    const json = await db.Actions.findAll(query);
+    res.send(json);
 });
 
 app.get('/motd/lowfire', (req, res) => {
