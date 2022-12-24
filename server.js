@@ -57,7 +57,12 @@ const logger = async function (req, res, next)
                 'tag': 'ti_'+trackingTag,
                 'origin': referer 
             };
-            await db.Actions.create(logPkg);
+            try{
+                await db.Actions.create(logPkg);
+            }
+            catch(err){
+                console.log(err);
+            }
         }
     }
     next();
@@ -99,6 +104,7 @@ app.post('/log', async (req, res) => {
         await db.Logs.create(logPkg.logPkg);
         res.send('OK');
     }catch(err){
+        console.log(err);
         res.send('Err');
     }
     
