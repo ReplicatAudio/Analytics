@@ -95,8 +95,13 @@ app.post('/log', async (req, res) => {
         res.send(lockPkg.msg);
         return;
     }
-    await db.Logs.create(logPkg.logPkg);
-    res.send('OK');
+    try{
+        await db.Logs.create(logPkg.logPkg);
+        res.send('OK');
+    }catch(err){
+        res.send('Err');
+    }
+    
 });
 
 app.post('/action', async (req, res) => {
@@ -179,10 +184,10 @@ app.get('/actions', async (req, res) => {
 });
 
 app.get('/motd/lowfire', (req, res) => {
-	const title = "Welcome";
-	const body = "Thanks for using LowFire";
-	const link = "https://replicataudio.com"
-	const tag = "thanks1";
+	const title = "NEW UPDATE";
+	const body = "LowFire v22.12.19 is releasing today";
+	const link = "https://replicataudio.com/lowfire"
+	const tag = "update22_12_19";
 	const delimiter = "|";
 	res.send(title+delimiter+body+delimiter+link+delimiter+tag);
 });
@@ -192,6 +197,15 @@ app.get('/motd/greenwave', (req, res) => {
 	const body = "Thanks for joining the GreenWave Beta!";
 	const link = "https://replicataudio.com"
 	const tag = "test";
+	const delimiter = "|";
+	res.send(title+delimiter+body+delimiter+link+delimiter+tag);
+});
+
+app.get('/motd/dolos', (req, res) => {
+	const title = "Welcome";
+	const body = "Thanks for choosing ReplicatAudio!";
+	const link = "https://replicataudio.com"
+	const tag = "release";
 	const delimiter = "|";
 	res.send(title+delimiter+body+delimiter+link+delimiter+tag);
 });
